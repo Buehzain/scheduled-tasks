@@ -16,7 +16,7 @@ import os
 MY_EMAIL = os.environ.get("MY_EMAIL")
 MY_PASSWORD = os.environ.get("MY_PASSWORD")
 
-now = dt.datetime.now()
+now = datetime.now()
 today_month = now.month
 today_day = now.day
 today = (today_month, today_day)
@@ -31,10 +31,10 @@ if today in birthday_dict:
         content = letter_file.read()
         content = content.replace("[NAME]", birthday_person["name"])
 
-    with smtplib.SMTP("smtp.gmail.com",) as connection:
+    with smtplib.SMTP("smtp.gmail.com",587) as connection:
         connection.starttls()
-        connection.login(user=email, password=password)
-        connection.sendmail(from_addr=email,
+        connection.login(user=MY_EMAIL, password=MY_PASSWORD)
+        connection.sendmail(from_addr=MY_EMAIL,
                             to_addrs=birthday_person["email"],
                             msg=f"subject:Happy Birthday!\n\n{content}")
 
